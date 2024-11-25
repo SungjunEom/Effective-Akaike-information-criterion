@@ -11,7 +11,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f'Using device: {device}')
 
 # Hyperparameters
-num_epochs = 50
+num_epochs = 100
 batch_size = 128
 learning_rate = 0.001
 threshold_r = 0.1  # Threshold scaling factor for EAIC
