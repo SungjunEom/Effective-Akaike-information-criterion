@@ -1,0 +1,185 @@
+Using device: cuda
+Training Simple Neural Network (SNN)...
+Epoch [1/50], Loss: 1.7181
+Epoch [2/50], Loss: 0.7851
+Epoch [3/50], Loss: 0.5390
+Epoch [4/50], Loss: 0.4519
+Epoch [5/50], Loss: 0.4070
+Epoch [6/50], Loss: 0.3793
+Epoch [7/50], Loss: 0.3597
+Epoch [8/50], Loss: 0.3450
+Epoch [9/50], Loss: 0.3330
+Epoch [10/50], Loss: 0.3230
+Epoch [11/50], Loss: 0.3141
+Epoch [12/50], Loss: 0.3061
+Epoch [13/50], Loss: 0.2989
+Epoch [14/50], Loss: 0.2922
+Epoch [15/50], Loss: 0.2859
+Epoch [16/50], Loss: 0.2799
+Epoch [17/50], Loss: 0.2741
+Epoch [18/50], Loss: 0.2687
+Epoch [19/50], Loss: 0.2634
+Epoch [20/50], Loss: 0.2583
+Epoch [21/50], Loss: 0.2534
+Epoch [22/50], Loss: 0.2487
+Epoch [23/50], Loss: 0.2442
+Epoch [24/50], Loss: 0.2400
+Epoch [25/50], Loss: 0.2358
+Epoch [26/50], Loss: 0.2318
+Epoch [27/50], Loss: 0.2280
+Epoch [28/50], Loss: 0.2241
+Epoch [29/50], Loss: 0.2205
+Epoch [30/50], Loss: 0.2169
+Epoch [31/50], Loss: 0.2135
+Epoch [32/50], Loss: 0.2101
+Epoch [33/50], Loss: 0.2070
+Epoch [34/50], Loss: 0.2037
+Epoch [35/50], Loss: 0.2006
+Epoch [36/50], Loss: 0.1976
+Epoch [37/50], Loss: 0.1948
+Epoch [38/50], Loss: 0.1920
+Epoch [39/50], Loss: 0.1892
+Epoch [40/50], Loss: 0.1866
+Epoch [41/50], Loss: 0.1840
+Epoch [42/50], Loss: 0.1816
+Epoch [43/50], Loss: 0.1790
+Epoch [44/50], Loss: 0.1766
+Epoch [45/50], Loss: 0.1742
+Epoch [46/50], Loss: 0.1720
+Epoch [47/50], Loss: 0.1697
+Epoch [48/50], Loss: 0.1675
+Epoch [49/50], Loss: 0.1654
+Epoch [50/50], Loss: 0.1634
+
+Training Deep Neural Network without Regularization (DNN)...
+Epoch [1/50], Loss: 2.2801
+Epoch [2/50], Loss: 2.0927
+Epoch [3/50], Loss: 1.2113
+Epoch [4/50], Loss: 0.6375
+Epoch [5/50], Loss: 0.4909
+Epoch [6/50], Loss: 0.4306
+Epoch [7/50], Loss: 0.3933
+Epoch [8/50], Loss: 0.3650
+Epoch [9/50], Loss: 0.3421
+Epoch [10/50], Loss: 0.3219
+Epoch [11/50], Loss: 0.3045
+Epoch [12/50], Loss: 0.2881
+Epoch [13/50], Loss: 0.2731
+Epoch [14/50], Loss: 0.2587
+Epoch [15/50], Loss: 0.2457
+Epoch [16/50], Loss: 0.2327
+Epoch [17/50], Loss: 0.2210
+Epoch [18/50], Loss: 0.2101
+Epoch [19/50], Loss: 0.2000
+Epoch [20/50], Loss: 0.1906
+Epoch [21/50], Loss: 0.1819
+Epoch [22/50], Loss: 0.1739
+Epoch [23/50], Loss: 0.1671
+Epoch [24/50], Loss: 0.1603
+Epoch [25/50], Loss: 0.1540
+Epoch [26/50], Loss: 0.1482
+Epoch [27/50], Loss: 0.1431
+Epoch [28/50], Loss: 0.1378
+Epoch [29/50], Loss: 0.1332
+Epoch [30/50], Loss: 0.1282
+Epoch [31/50], Loss: 0.1245
+Epoch [32/50], Loss: 0.1201
+Epoch [33/50], Loss: 0.1165
+Epoch [34/50], Loss: 0.1130
+Epoch [35/50], Loss: 0.1091
+Epoch [36/50], Loss: 0.1060
+Epoch [37/50], Loss: 0.1029
+Epoch [38/50], Loss: 0.0995
+Epoch [39/50], Loss: 0.0965
+Epoch [40/50], Loss: 0.0938
+Epoch [41/50], Loss: 0.0912
+Epoch [42/50], Loss: 0.0885
+Epoch [43/50], Loss: 0.0860
+Epoch [44/50], Loss: 0.0837
+Epoch [45/50], Loss: 0.0816
+Epoch [46/50], Loss: 0.0791
+Epoch [47/50], Loss: 0.0771
+Epoch [48/50], Loss: 0.0748
+Epoch [49/50], Loss: 0.0728
+Epoch [50/50], Loss: 0.0711
+
+Training Deep Neural Network with L2 Regularization (DNN-Reg)...
+Epoch [1/50], Loss: 2.2866
+Epoch [2/50], Loss: 2.1629
+Epoch [3/50], Loss: 1.5300
+Epoch [4/50], Loss: 0.7352
+Epoch [5/50], Loss: 0.4975
+Epoch [6/50], Loss: 0.4206
+Epoch [7/50], Loss: 0.3841
+Epoch [8/50], Loss: 0.3592
+Epoch [9/50], Loss: 0.3395
+Epoch [10/50], Loss: 0.3221
+Epoch [11/50], Loss: 0.3062
+Epoch [12/50], Loss: 0.2918
+Epoch [13/50], Loss: 0.2782
+Epoch [14/50], Loss: 0.2642
+Epoch [15/50], Loss: 0.2519
+Epoch [16/50], Loss: 0.2398
+Epoch [17/50], Loss: 0.2278
+Epoch [18/50], Loss: 0.2174
+Epoch [19/50], Loss: 0.2071
+Epoch [20/50], Loss: 0.1979
+Epoch [21/50], Loss: 0.1889
+Epoch [22/50], Loss: 0.1808
+Epoch [23/50], Loss: 0.1734
+Epoch [24/50], Loss: 0.1661
+Epoch [25/50], Loss: 0.1594
+Epoch [26/50], Loss: 0.1535
+Epoch [27/50], Loss: 0.1480
+Epoch [28/50], Loss: 0.1428
+Epoch [29/50], Loss: 0.1375
+Epoch [30/50], Loss: 0.1333
+Epoch [31/50], Loss: 0.1291
+Epoch [32/50], Loss: 0.1248
+Epoch [33/50], Loss: 0.1210
+Epoch [34/50], Loss: 0.1175
+Epoch [35/50], Loss: 0.1139
+Epoch [36/50], Loss: 0.1104
+Epoch [37/50], Loss: 0.1076
+Epoch [38/50], Loss: 0.1045
+Epoch [39/50], Loss: 0.1017
+Epoch [40/50], Loss: 0.0992
+Epoch [41/50], Loss: 0.0964
+Epoch [42/50], Loss: 0.0942
+Epoch [43/50], Loss: 0.0921
+Epoch [44/50], Loss: 0.0899
+Epoch [45/50], Loss: 0.0879
+Epoch [46/50], Loss: 0.0854
+Epoch [47/50], Loss: 0.0835
+Epoch [48/50], Loss: 0.0820
+Epoch [49/50], Loss: 0.0797
+Epoch [50/50], Loss: 0.0782
+
+Evaluating Simple Neural Network (SNN)...
+Test Accuracy: 95.17%
+
+Evaluating Deep Neural Network without Regularization (DNN)...
+Test Accuracy: 97.04%
+
+Evaluating Deep Neural Network with L2 Regularization (DNN-Reg)...
+Test Accuracy: 96.99%
+
+Calculating AIC and EAIC for SNN...
+
+Calculating AIC and EAIC for DNN...
+
+Calculating AIC and EAIC for DNN-Reg...
+
+===== Results =====
+SNN Test Accuracy: 95.17%
+SNN AIC: 222926.91, EAIC: 204022.91, Total Params: 101770, Effective Params: 92318
+
+DNN Test Accuracy: 97.04%
+DNN AIC: 493637.43, EAIC: 453629.43, Total Params: 242762, Effective Params: 222758
+
+DNN-Reg Test Accuracy: 96.99%
+DNN-Reg AIC: 494638.56, EAIC: 451640.56, Total Params: 242762, Effective Params: 221263
+
+===== Correlation Analysis =====
+Correlation between AIC and Test Accuracy: 99.96%
+Correlation between EAIC and Test Accuracy: 99.99%
