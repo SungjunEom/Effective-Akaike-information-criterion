@@ -11,11 +11,14 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f'Using device: {device}')
 
 # Hyperparameters
-num_epochs = 100
+num_epochs = 10
 batch_size = 128
 learning_rate = 0.001
 threshold_r = 0.1  # Threshold scaling factor for EAIC
 regularization_lambda = 0.001  # Regularization parameter for L2 regularization (weight decay)
+
+# Number of runs
+num_runs = 100
 
 # MNIST dataset
 transform = transforms.Compose([
@@ -89,10 +92,8 @@ class DeepNNReg(nn.Module):
 # Function to train the model
 def train_model(model, train_loader, optimizer, criterion, num_epochs):
     model.train()
-    total_steps = len(train_loader)
     for epoch in range(num_epochs):
-        epoch_loss = 0
-        for i, (images, labels) in enumerate(train_loader):
+        for images, labels in train_loader:
             images = images.to(device)
             labels = labels.to(device)
             
@@ -104,11 +105,6 @@ def train_model(model, train_loader, optimizer, criterion, num_epochs):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            
-            epoch_loss += loss.item()
-        
-        # Print loss every epoch
-        print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {epoch_loss/total_steps:.4f}')
     return model
 
 # Function to evaluate the model
@@ -162,58 +158,100 @@ def calculate_aic_eaic(model, train_loader, threshold_r):
     EAIC = 2 * k_eff + 2 * nll
     
     return AIC, EAIC, k, k_eff, nll
-# Define a function to perform the full pipeline for one iteration
-def run_experiment():
+
+# Lists to store results
+aic_snn_list = []
+eaic_snn_list = []
+accuracy_snn_list = []
+
+aic_dnn_list = []
+eaic_dnn_list = []
+accuracy_dnn_list = []
+
+aic_dnn_reg_list = []
+eaic_dnn_reg_list = []
+accuracy_dnn_reg_list = []
+
+print(f'Running {num_runs} runs for each model...\n')
+
+for run in range(num_runs):
+    print(f'Run {run+1}/{num_runs}')
+    
     # Initialize models
     model_snn = SimpleNN().to(device)
     model_dnn = DeepNN().to(device)
     model_dnn_reg = DeepNNReg().to(device)
-
-    # Define optimizers
+    
+    # Define loss and optimizer
+    criterion = nn.CrossEntropyLoss()
+    
     optimizer_snn = optim.SGD(model_snn.parameters(), lr=learning_rate, momentum=0.9)
     optimizer_dnn = optim.SGD(model_dnn.parameters(), lr=learning_rate, momentum=0.9)
     optimizer_dnn_reg = optim.SGD(model_dnn_reg.parameters(), lr=learning_rate, momentum=0.9, weight_decay=regularization_lambda)
-
+    
     # Train models
-    train_model(model_snn, train_loader, optimizer_snn, criterion, num_epochs)
-    train_model(model_dnn, train_loader, optimizer_dnn, criterion, num_epochs)
-    train_model(model_dnn_reg, train_loader, optimizer_dnn_reg, criterion, num_epochs)
-
+    model_snn = train_model(model_snn, train_loader, optimizer_snn, criterion, num_epochs)
+    model_dnn = train_model(model_dnn, train_loader, optimizer_dnn, criterion, num_epochs)
+    model_dnn_reg = train_model(model_dnn_reg, train_loader, optimizer_dnn_reg, criterion, num_epochs)
+    
     # Evaluate models
-    accuracy_snn, _ = evaluate_model(model_snn, test_loader)
-    accuracy_dnn, _ = evaluate_model(model_dnn, test_loader)
-    accuracy_dnn_reg, _ = evaluate_model(model_dnn_reg, test_loader)
-
+    accuracy_snn, test_loss_snn = evaluate_model(model_snn, test_loader)
+    accuracy_dnn, test_loss_dnn = evaluate_model(model_dnn, test_loader)
+    accuracy_dnn_reg, test_loss_dnn_reg = evaluate_model(model_dnn_reg, test_loader)
+    
     # Calculate AIC and EAIC
-    AIC_snn, EAIC_snn, _, _, _ = calculate_aic_eaic(model_snn, train_loader, threshold_r)
-    AIC_dnn, EAIC_dnn, _, _, _ = calculate_aic_eaic(model_dnn, train_loader, threshold_r)
-    AIC_dnn_reg, EAIC_dnn_reg, _, _, _ = calculate_aic_eaic(model_dnn_reg, train_loader, threshold_r)
+    AIC_snn, EAIC_snn, k_snn, k_eff_snn, nll_snn = calculate_aic_eaic(model_snn, train_loader, threshold_r)
+    AIC_dnn, EAIC_dnn, k_dnn, k_eff_dnn, nll_dnn = calculate_aic_eaic(model_dnn, train_loader, threshold_r)
+    AIC_dnn_reg, EAIC_dnn_reg, k_dnn_reg, k_eff_dnn_reg, nll_dnn_reg = calculate_aic_eaic(model_dnn_reg, train_loader, threshold_r)
+    
+    # Store results
+    aic_snn_list.append(AIC_snn)
+    eaic_snn_list.append(EAIC_snn)
+    accuracy_snn_list.append(accuracy_snn)
+    
+    aic_dnn_list.append(AIC_dnn)
+    eaic_dnn_list.append(EAIC_dnn)
+    accuracy_dnn_list.append(accuracy_dnn)
+    
+    aic_dnn_reg_list.append(AIC_dnn_reg)
+    eaic_dnn_reg_list.append(EAIC_dnn_reg)
+    accuracy_dnn_reg_list.append(accuracy_dnn_reg)
+    
+# Convert lists to numpy arrays
+aic_snn_array = np.array(aic_snn_list)
+eaic_snn_array = np.array(eaic_snn_list)
+accuracy_snn_array = np.array(accuracy_snn_list)
 
-    # Correlation analysis
-    aic_values = np.array([AIC_snn, AIC_dnn, AIC_dnn_reg])
-    eaic_values = np.array([EAIC_snn, EAIC_dnn, EAIC_dnn_reg])
-    test_accuracies = np.array([accuracy_snn, accuracy_dnn, accuracy_dnn_reg])
+aic_dnn_array = np.array(aic_dnn_list)
+eaic_dnn_array = np.array(eaic_dnn_list)
+accuracy_dnn_array = np.array(accuracy_dnn_list)
 
-    corr_aic = np.corrcoef(aic_values, test_accuracies)[0, 1]
-    corr_eaic = np.corrcoef(eaic_values, test_accuracies)[0, 1]
+aic_dnn_reg_array = np.array(aic_dnn_reg_list)
+eaic_dnn_reg_array = np.array(eaic_dnn_reg_list)
+accuracy_dnn_reg_array = np.array(accuracy_dnn_reg_list)
 
-    return corr_aic, corr_eaic
+# Correlation Analysis for SNN
+corr_aic_snn = np.corrcoef(aic_snn_array, accuracy_snn_array)[0,1]
+corr_eaic_snn = np.corrcoef(eaic_snn_array, accuracy_snn_array)[0,1]
 
-# Run the experiment 100 times and store the correlations
-correlations_aic = []
-correlations_eaic = []
+# Correlation Analysis for DNN
+corr_aic_dnn = np.corrcoef(aic_dnn_array, accuracy_dnn_array)[0,1]
+corr_eaic_dnn = np.corrcoef(eaic_dnn_array, accuracy_dnn_array)[0,1]
 
-num_iterations = 100
-for _ in range(num_iterations):
-    corr_aic, corr_eaic = run_experiment()
-    correlations_aic.append(corr_aic)
-    correlations_eaic.append(corr_eaic)
+# Correlation Analysis for DNN-Reg
+corr_aic_dnn_reg = np.corrcoef(aic_dnn_reg_array, accuracy_dnn_reg_array)[0,1]
+corr_eaic_dnn_reg = np.corrcoef(eaic_dnn_reg_array, accuracy_dnn_reg_array)[0,1]
 
-# Calculate average correlations
-average_corr_aic = np.mean(correlations_aic)
-average_corr_eaic = np.mean(correlations_eaic)
+# Print Correlation Results
+print('\n===== Correlation Analysis =====')
+print('Simple Neural Network (SNN):')
+print(f'Correlation between AIC and Test Accuracy: {corr_aic_snn*100:.2f}%')
+print(f'Correlation between EAIC and Test Accuracy: {corr_eaic_snn*100:.2f}%')
 
-print(f'\n===== Final Results After {num_iterations} Iterations =====')
-print(f'Average Correlation between AIC and Test Accuracy: {average_corr_aic*100:.2f}%')
-print(f'Average Correlation between EAIC and Test Accuracy: {average_corr_eaic*100:.2f}%')
+print('\nDeep Neural Network (DNN):')
+print(f'Correlation between AIC and Test Accuracy: {corr_aic_dnn*100:.2f}%')
+print(f'Correlation between EAIC and Test Accuracy: {corr_eaic_dnn*100:.2f}%')
 
+print('\nDeep Neural Network with L2 Regularization (DNN-Reg):')
+print(f'Correlation between AIC and Test Accuracy: {corr_aic_dnn_reg*100:.2f}%')
+print(f'Correlation between EAIC and Test Accuracy: {corr_eaic_dnn_reg*100:.2f}%')
