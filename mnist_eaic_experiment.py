@@ -5,6 +5,7 @@ import torch.optim as optim
 import torchvision
 from torchvision import datasets, transforms
 import numpy as np
+import time
 
 # Device configuration
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -12,7 +13,7 @@ print(f'Using device: {device}')
 
 # Hyperparameters
 num_epochs = 10
-batch_size = 128
+batch_size = 1024  # Increased batch size
 learning_rate = 0.001
 threshold_r = 0.1  # Threshold scaling factor for EAIC
 regularization_lambda = 0.001  # Regularization parameter for L2 regularization (weight decay)
@@ -34,68 +35,98 @@ test_dataset = datasets.MNIST(root='./data',
                               train=False,
                               transform=transform)
 
+# Adjusted DataLoader with num_workers and pin_memory
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
                                            batch_size=batch_size,
-                                           shuffle=True)
+                                           shuffle=True,
+                                           num_workers=4,    # Number of subprocesses for data loading
+                                           pin_memory=True)  # Speeds up the transfer to GPU
 
 test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           batch_size=batch_size,
-                                          shuffle=False)
+                                          shuffle=False,
+                                          num_workers=4,
+                                          pin_memory=True)
 
-# Model 1: Simple Neural Network (SNN)
+# Model 1: Larger Simple Neural Network (SNN)
 class SimpleNN(nn.Module):
     def __init__(self):
         super(SimpleNN, self).__init__()
-        self.fc1 = nn.Linear(28*28, 128)
-        self.fc2 = nn.Linear(128, 10)
-        
+        self.fc1 = nn.Linear(28*28, 4096)
+        self.fc2 = nn.Linear(4096, 2048)
+        self.fc3 = nn.Linear(2048, 1024)
+        self.fc4 = nn.Linear(1024, 10)
+            
     def forward(self, x):
         x = x.view(-1, 28*28)
         out = F.relu(self.fc1(x))
-        out = self.fc2(out)
+        out = F.relu(self.fc2(out))
+        out = F.relu(self.fc3(out))
+        out = self.fc4(out)
         return out
 
-# Model 2: Deep Neural Network without Regularization (DNN)
+# Model 2: Larger Deep Neural Network without Regularization (DNN)
 class DeepNN(nn.Module):
     def __init__(self):
         super(DeepNN, self).__init__()
-        self.fc1 = nn.Linear(28*28, 256)
-        self.fc2 = nn.Linear(256, 128)
-        self.fc3 = nn.Linear(128, 64)
-        self.fc4 = nn.Linear(64, 10)
-        
+        self.fc1 = nn.Linear(28*28, 8192)
+        self.fc2 = nn.Linear(8192, 4096)
+        self.fc3 = nn.Linear(4096, 2048)
+        self.fc4 = nn.Linear(2048, 1024)
+        self.fc5 = nn.Linear(1024, 512)
+        self.fc6 = nn.Linear(512, 256)
+        self.fc7 = nn.Linear(256, 128)
+        self.fc8 = nn.Linear(128, 64)
+        self.fc9 = nn.Linear(64, 10)
+            
     def forward(self, x):
         x = x.view(-1, 28*28)
-        out = F.relu(self.fc1(x))
-        out = F.relu(self.fc2(out))
-        out = F.relu(self.fc3(out))
-        out = self.fc4(out)
-        return out
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = F.relu(self.fc3(x))
+        x = F.relu(self.fc4(x))
+        x = F.relu(self.fc5(x))
+        x = F.relu(self.fc6(x))
+        x = F.relu(self.fc7(x))
+        x = F.relu(self.fc8(x))
+        x = self.fc9(x)
+        return x
 
-# Model 3: Deep Neural Network with L2 Regularization (DNN-Reg)
+# Model 3: Larger Deep Neural Network with L2 Regularization (DNN-Reg)
 class DeepNNReg(nn.Module):
     def __init__(self):
         super(DeepNNReg, self).__init__()
-        self.fc1 = nn.Linear(28*28, 256)
-        self.fc2 = nn.Linear(256, 128)
-        self.fc3 = nn.Linear(128, 64)
-        self.fc4 = nn.Linear(64, 10)
-        
+        self.fc1 = nn.Linear(28*28, 8192)
+        self.fc2 = nn.Linear(8192, 4096)
+        self.fc3 = nn.Linear(4096, 2048)
+        self.fc4 = nn.Linear(2048, 1024)
+        self.fc5 = nn.Linear(1024, 512)
+        self.fc6 = nn.Linear(512, 256)
+        self.fc7 = nn.Linear(256, 128)
+        self.fc8 = nn.Linear(128, 64)
+        self.fc9 = nn.Linear(64, 10)
+            
     def forward(self, x):
         x = x.view(-1, 28*28)
-        out = F.relu(self.fc1(x))
-        out = F.relu(self.fc2(out))
-        out = F.relu(self.fc3(out))
-        out = self.fc4(out)
-        return out
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = F.relu(self.fc3(x))
+        x = F.relu(self.fc4(x))
+        x = F.relu(self.fc5(x))
+        x = F.relu(self.fc6(x))
+        x = F.relu(self.fc7(x))
+        x = F.relu(self.fc8(x))
+        x = self.fc9(x)
+        return x
 
 # Function to train the model
 def train_model(model, train_loader, optimizer, criterion, num_epochs):
     model.train()
+    start_time = time.time()
     for epoch in range(num_epochs):
         for images, labels in train_loader:
-            images = images.to(device)
-            labels = labels.to(device)
+            images = images.to(device, non_blocking=True)
+            labels = labels.to(device, non_blocking=True)
             
             # Forward pass
             outputs = model(images)
@@ -105,6 +136,8 @@ def train_model(model, train_loader, optimizer, criterion, num_epochs):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+    end_time = time.time()
+    print(f'Training Time: {end_time - start_time:.2f} seconds')
     return model
 
 # Function to evaluate the model
@@ -116,15 +149,15 @@ def evaluate_model(model, test_loader):
         total_loss = 0
         criterion = nn.CrossEntropyLoss()
         for images, labels in test_loader:
-            images = images.to(device)
-            labels = labels.to(device)
+            images = images.to(device, non_blocking=True)
+            labels = labels.to(device, non_blocking=True)
             outputs = model(images)
             loss = criterion(outputs, labels)
-            total_loss += loss.item()
+            total_loss += loss.item() * images.size(0)
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
-        avg_loss = total_loss / len(test_loader)
+        avg_loss = total_loss / total
         accuracy = 100 * correct / total
     return accuracy, avg_loss
 
@@ -136,8 +169,8 @@ def calculate_aic_eaic(model, train_loader, threshold_r):
     criterion = nn.CrossEntropyLoss(reduction='sum')  # Sum over all samples
     with torch.no_grad():
         for images, labels in train_loader:
-            images = images.to(device)
-            labels = labels.to(device)
+            images = images.to(device, non_blocking=True)
+            labels = labels.to(device, non_blocking=True)
             outputs = model(images)
             loss = criterion(outputs, labels)
             total_loss += loss.item()
@@ -185,9 +218,9 @@ for run in range(num_runs):
     # Define loss and optimizer
     criterion = nn.CrossEntropyLoss()
     
-    optimizer_snn = optim.SGD(model_snn.parameters(), lr=learning_rate, momentum=0.9)
-    optimizer_dnn = optim.SGD(model_dnn.parameters(), lr=learning_rate, momentum=0.9)
-    optimizer_dnn_reg = optim.SGD(model_dnn_reg.parameters(), lr=learning_rate, momentum=0.9, weight_decay=regularization_lambda)
+    optimizer_snn = optim.Adam(model_snn.parameters(), lr=learning_rate)
+    optimizer_dnn = optim.Adam(model_dnn.parameters(), lr=learning_rate)
+    optimizer_dnn_reg = optim.Adam(model_dnn_reg.parameters(), lr=learning_rate, weight_decay=regularization_lambda)
     
     # Train models
     model_snn = train_model(model_snn, train_loader, optimizer_snn, criterion, num_epochs)
@@ -216,7 +249,7 @@ for run in range(num_runs):
     aic_dnn_reg_list.append(AIC_dnn_reg)
     eaic_dnn_reg_list.append(EAIC_dnn_reg)
     accuracy_dnn_reg_list.append(accuracy_dnn_reg)
-    
+
 # Convert lists to numpy arrays
 aic_snn_array = np.array(aic_snn_list)
 eaic_snn_array = np.array(eaic_snn_list)
