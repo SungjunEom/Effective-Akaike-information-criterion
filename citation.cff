@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Eom"
+  given-names: "Sungjun"
+  orcid: "https://orcid.org/0009-0001-8013-2454"
+title: "Modified Akaike Information Criterion for Quantifying Regularization in Nonlinear Regression"
+# version: 2.0.4
+# doi: 10.5281/zenodo.1234
+date-released: 2025-01-12
+url: "https://github.com/SungjunEom/eaic_dnn"
