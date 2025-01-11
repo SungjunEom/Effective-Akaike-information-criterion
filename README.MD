@@ -88,7 +88,7 @@ Regularization techniques such as LASSO (L1) and Ridge (L2) constrain parameter 
 ## Conclusion
 EAIC offers a promising extension to AIC by incorporating effective parameter counts, providing a nuanced measure of model complexity under regularization. While traditional AIC remains suitable for simpler models, EAIC excels in modern applications involving high-dimensional and regularized models. Further refinement and validation are needed to optimize its application across diverse scenarios.
 
-## BibTex
+## BibTeX
 ```
 @software{eom_2025_software,
   author       = {Sungjun Eom},
