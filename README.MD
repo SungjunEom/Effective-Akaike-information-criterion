@@ -9,18 +9,18 @@ This project introduces the Effective Akaike Information Criterion (EAIC), a mod
 
 ### Akaike Information Criterion (AIC)
 AIC balances model goodness-of-fit with complexity, penalizing models with excessive parameters:
-\[ \text{AIC} = 2k - 2\ln(\hat{L}) \]
+$$ \text{AIC} = 2k - 2\ln(\hat{L}) $$
 where:
-- \( k \): Number of parameters
-- \( \hat{L} \): Maximum likelihood value
+- $  k $: Number of parameters
+- $  \hat{L} $: Maximum likelihood value
 
 AIC does not account for regularization, often leading to high scores for over-parameterized models that generalize well due to regularization.
 
 ### Effective Akaike Information Criterion (EAIC)
-EAIC introduces the concept of the effective number of parameters (\( k_{\text{eff}} \)), defined as those parameters exceeding a threshold \( h \):
+EAIC introduces the concept of the effective number of parameters ($  k_{\text{eff}} $), defined as those parameters exceeding a threshold $  h $:
 \[ \mathrm{EAIC} = 2k_{\text{eff}} - 2\ln(\hat{L}) \]
 \[ k_{\text{eff}} = \sum_{i=0}^k I(|\beta_i| > h) \]
-where \( I(\cdot) \) is an indicator function.
+where $  I(\cdot) $ is an indicator function.
 
 ### Regularization
 Regularization techniques such as LASSO (L1) and Ridge (L2) constrain parameter magnitudes to prevent overfitting, effectively reducing the active dimensionality of models.
@@ -32,8 +32,8 @@ Regularization techniques such as LASSO (L1) and Ridge (L2) constrain parameter 
 
 ## Methodology
 1. **Effective Number of Parameters**:
-   - Replace raw parameter counts with \( k_{\text{eff}} \) in AIC to reflect only significant parameters.
-   - Determine \( h \) as a fraction of parameter standard deviation (e.g., \( h = 0.1\sigma \)).
+   - Replace raw parameter counts with $  k_{\text{eff}} $ in AIC to reflect only significant parameters.
+   - Determine $  h $ as a fraction of parameter standard deviation (e.g., $  h = 0.1\sigma $).
 2. **Datasets**:
    - **Abalone Dataset**: Predict abalone age using physical measurements.
    - **MNIST Dataset**: Evaluate nonlinear regression using digit classification.
