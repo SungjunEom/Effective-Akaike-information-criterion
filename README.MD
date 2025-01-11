@@ -9,7 +9,8 @@ This project introduces the Effective Akaike Information Criterion (EAIC), a mod
 ## Key Concepts
 
 ### Akaike Information Criterion (AIC)
-AIC balances model goodness-of-fit with complexity, penalizing models with excessive parameters:
+AIC balances model goodness-of-fit with complexity, penalizing models with excessive parameters[^1]:
+[^1]:Hirotogu Akaike. Information theory and an extension of the maximum likelihood principle. In Selected papers of hirotugu akaike, pages 199–213. Springer, 1998.
 ```math
  \text{AIC} = 2k - 2\ln(\hat{L})
 ```
@@ -100,7 +101,5 @@ EAIC offers a promising extension to AIC by incorporating effective parameter co
   title        = {Modified Akaike Information Criterion for Quantifying Regularization in Nonlinear Regression},
   year         = {2025},
   url          = {https://github.com/SungjunEom/eaic_dnn},
-
 }
-
 ```
