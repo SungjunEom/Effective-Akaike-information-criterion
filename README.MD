@@ -11,8 +11,8 @@ This project introduces the Effective Akaike Information Criterion (EAIC), a mod
 AIC balances model goodness-of-fit with complexity, penalizing models with excessive parameters:
 $$ \text{AIC} = 2k - 2\ln(\hat{L}) $$
 where:
-- $  k $: Number of parameters
-- $  \hat{L} $: Maximum likelihood value
+- $` k `$: Number of parameters
+- $ \hat{L} $: Maximum likelihood value
 
 AIC does not account for regularization, often leading to high scores for over-parameterized models that generalize well due to regularization.
 
