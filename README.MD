@@ -12,7 +12,9 @@ The objective of this study is to validate the theory of EAIC through empirical 
 ## Related Work
 ### Akaike Information Criterion
 The AIC has long been a pivotal tool in model selection, particularly in contexts where statistical inference and predictive accuracy are crucial. Developed by Akaike \cite{akaike1998information}, AIC provides a method for balancing the trade-off between model complexity and goodness-of-fit. It operates under the principle of parsimony, where the aim is to select a model that adequately explains the data with the fewest parameters. AIC is calculated as a combination of the likelihood of the model and a penalty term based on the number of estimated parameters \eqref{eq:aic}.
-$$\begin{aligned}    \mathrm{AIC} &= 2k - 2\ln(\hat{L})\label{eq:aic}\end{aligned}$$
+
+$$\mathrm{AIC} &= 2k - 2\ln(\hat{L})$$
+
 $\hat{L}$ denotes the maximized value of the likelihood function and $k$ denotes the number of parameters.
 This formulation effectively discourages over-fitting by penalizing models with excessive complexity, thus aligning well with parsimony. Over the years, AIC has been extended and adapted for various modeling approaches. Adjustments such as AICc, a corrected version of AIC, have been developed to address biases in small smaple sizes \cite{hurvich1989regression}. These extensions highlight the flexibility of AIC in different statistical environments.
 
