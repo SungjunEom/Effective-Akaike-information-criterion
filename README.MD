@@ -10,7 +10,7 @@ This project introduces the Effective Akaike Information Criterion (EAIC), a mod
 
 ### Akaike Information Criterion (AIC)
 AIC balances model goodness-of-fit with complexity, penalizing models with excessive parameters[^1]:
-[^1]:Hirotogu Akaike. Information theory and an extension of the maximum likelihood principle. In Selected papers of hirotugu akaike, pages 199–213. Springer, 1998.
+[^1]:Hirotogu Akaike. Information theory and an extension of the maximum likelihood principle. In *Selected papers of hirotugu akaike*, pages 199–213. Springer, 1998.
 ```math
  \text{AIC} = 2k - 2\ln(\hat{L})
 ```
@@ -43,8 +43,10 @@ Regularization techniques such as LASSO (L1) and Ridge (L2) constrain parameter 
    - Replace raw parameter counts with $`  k_{\text{eff}} `$ in AIC to reflect only significant parameters.
    - Determine $`  h `$ as a fraction of parameter standard deviation (e.g., $`  h = 0.1\sigma `$).
 2. **Datasets**:
-   - **Abalone Dataset**: Predict abalone age using physical measurements.
-   - **MNIST Dataset**: Evaluate nonlinear regression using digit classification.
+   - **Abalone Dataset**[^2]: Predict abalone age using physical measurements.
+   [^2]:Nash, Warwick, Sellers, Tracy, Talbot, Simon, Cawthorn, Andrew, Ford, and Wes. Abalone. UCI Machine Learning Repository, 1995. DOI: https://doi.org/10.24432/C55C7W.
+   - **MNIST Dataset**[^3]: Evaluate nonlinear regression using digit classification.
+   [^3]:Li Deng. The mnist database of handwritten digit images for machine learning research. *IEEE Signal Processing Magazine*, 29(6):141–142, 2012.
 3. **Evaluation**:
    - Compare AIC and EAIC across models like Linear Regression, LASSO, and Ridge.
    - Assess correlations between information criteria and generalization metrics like test Mean Squared Error (MSE).
