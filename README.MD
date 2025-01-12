@@ -103,5 +103,6 @@ EAIC offers a promising extension to AIC by incorporating effective parameter co
   title        = {Modified Akaike Information Criterion for Quantifying Regularization in Nonlinear Regression},
   year         = {2025},
   url          = {https://github.com/SungjunEom/eaic_dnn},
+  note         = {Paper version.}
 }
 ```

@@ -10,7 +10,7 @@ title: "Modified Akaike Information Criterion for Quantifying Regularization in 
 # version: 2.0.4
 # doi: 10.5281/zenodo.1234
 date-released: 2025-01-12
-url: "https://github.com/SungjunEom/eaic_dnn"
+url: "https://github.com/SungjunEom/Effective-Akaike-information-criterion"
 license: "MIT"
 
 related_resources:
@@ -26,4 +26,4 @@ related_resources:
   # pages: "45-67"
   year: 2025
   # doi: "10.1234/example.doi"
-  url: "https://github.com/SungjunEom/eaic_dnn"
+  url: "https://github.com/SungjunEom/Effective-Akaike-information-criterion"
