@@ -1,7 +1,7 @@
 # Modified Akaike Information Criterion for Quantifying Regularization in Nonlinear Regression
 *This is a failed project. I made this repo public for people not to repeat my mistake.*
 
-[Paper version](paper.pdf)
+[Click here for the full paper (English)](paper.pdf)
 
 ## Overview
 This project introduces the Effective Akaike Information Criterion (EAIC), a modification of the Akaike Information Criterion (AIC) designed to account for the effects of regularization in model selection. While AIC has been a cornerstone in statistical modeling, it fails to consider the effective reduction in model complexity achieved through regularization techniques like LASSO, Ridge, and Dropout in deep learning. EAIC aims to fill this gap by incorporating the effective number of parameters into the calculation, offering a more robust tool for evaluating and comparing regularized models.
