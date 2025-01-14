@@ -105,4 +105,12 @@ EAIC offers a promising extension to AIC by incorporating effective parameter co
   url          = {https://github.com/SungjunEom/Effective-Akaike-information-criterion},
   note         = {Paper version.}
 }
+
+@misc{eom_2025_github,
+  author       = {Sungjun Eom},
+  title        = {Modified Akaike Information Criterion for Quantifying Regularization in Nonlinear Regression},
+  url          = {https://github.com/SungjunEom/Effective-Akaike-information-criterion},
+  note         = {Accessed: 2025-01-14},
+  year         = {2025}
+}
 ```
